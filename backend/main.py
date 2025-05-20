@@ -37,3 +37,15 @@ async def run_code(data: CodeRequest):
             finally:
                 os.remove(tmp.name)
     return { "error": "Unsupported language" }
+    from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+# frontend klasörünü sun
+app.mount("/static", StaticFiles(directory="frontend", html=True), name="static")
+
+# Ana sayfayı göster ("/" isteği gelince)
+@app.get("/")
+async def root():
+    return FileResponse("frontend/index.html")
+
