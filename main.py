@@ -5,26 +5,28 @@ import openai
 import os
 from dotenv import load_dotenv
 
-# .env dosyasından API anahtarını oku
-load_dotenv()
+# 📦 .env dosyasını yükle (.env yerine api.env kullandıysan burayı değiştir)
+load_dotenv("api.env")
+
+# 🔑 OpenAI API anahtarını ortam değişkeninden al
 openai.api_key = os.getenv("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")
 
 app = FastAPI()
 
-# CORS ayarları - Google Sites veya başka frontendlerden istek kabul etmek için
+# 🌐 CORS ayarları
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # istersen sadece belirli domainler yazabilirsin
+    allow_origins=["*"],  # sadece belirli domainler eklemek için örnek: ["https://sites.google.com"]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# İstek için model
+# 🧾 İstek gövdesi modeli
 class PromptRequest(BaseModel):
     prompt: str
 
-# Yapay zekaya kod üretme isteği atacağımız endpoint
+# 🚀 Kod üretme API'si
 @app.post("/api/generate-code")
 async def generate_code(request: PromptRequest):
     try:
@@ -41,7 +43,7 @@ async def generate_code(request: PromptRequest):
     except Exception as e:
         return {"error": str(e)}
 
-# Ana sayfa endpoint'i - API çalışıyor kontrolü için
+# ✅ Ana sayfa - sağlık kontrolü
 @app.get("/")
 async def root():
-    return {"message": "API çalışıyor, lütfen /api/... endpointlerini kullanın."}
+    return {"message": "API çalışıyor, lütfen /api/generate-code endpoint'ini kullanın."}
