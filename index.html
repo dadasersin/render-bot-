@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yapay Zekalı Bot Kontrol Paneli</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+    <h1>🤖 Bot Kontrol Paneli</h1>
+
+    <h2>🎯 Kod Yaz ve Botu Başlat</h2>
+    <form action="https://render-bot-r9rk.onrender.com/api/run-code" method="POST" target="_blank">
+        <textarea name="code" rows="10" cols="60">print("Merhaba!")</textarea><br><br>
+        <button type="submit">Kodu Çalıştır</button>
+    </form>
+
+    <hr>
+
+    <h2>🧠 Yapay Zeka ile Kod Üret</h2>
+    <form id="generateForm">
+        <label for="prompt">Ne yapmak istiyorsun?</label><br>
+        <input type="text" id="prompt" name="prompt" size="60">
+        <button type="button" onclick="generateCode()">Kod Üret</button>
+    </form>
+    <pre id="generatedCode" style="background:#f4f4f4; padding:10px;"></pre>
+
+    <script>
+        async function generateCode() {
+            const prompt = document.getElementById("prompt").value;
+            const res = await fetch("https://render-bot-r9rk.onrender.com/api/generate-code", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ prompt })
+            });
+            const data = await res.json();
+            document.getElementById("generatedCode").innerText = data.code || "Kod oluşturulamadı.";
+        }
+    </script>
+</body>
+</html>
