@@ -16,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-openai.api_key = os.getenv("sk-proj-P-k5JrUtMrD1lisxd75Bbmn5aki8mUFal7hKbyA48_MDcMGKkq6iwtUsuZRdYxZqlK7cxTOsiQT3BlbkFJZLM98dVdkMETDp50kFGj89CMq0GFleZhYuUwH8Ceiz4")
+openai.api_key = os.getenv("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")
 
 @app.post("/generate_and_run")
 async def generate_and_run(request: Request):
