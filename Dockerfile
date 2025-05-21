@@ -1,10 +1,11 @@
 FROM python:3.11-slim
+
 WORKDIR /app
 
-COPY backend ./backend
-COPY frontend ./frontend
+COPY requirements.txt .
 
-RUN pip install fastapi uvicorn
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 8000
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY main.py .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
