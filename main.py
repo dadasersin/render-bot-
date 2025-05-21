@@ -36,3 +36,11 @@ async def generate_code(request: PromptRequest):
         return {"code": result}
     except Exception as e:
         return {"error": str(e)}
+        from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "API çalışıyor, lütfen /api/... endpointlerini kullanın."}
+
