@@ -3,10 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# CORS ayarları
+# CORS middleware ayarı
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # İstersen buraya sadece izin verilen domainleri yazabilirsin, örn: ["https://sites.google.com"]
+    allow_origins=["*"],  # Geliştirme aşamasında tüm domainlere izin veriyoruz
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -15,3 +15,4 @@ app.add_middleware(
 @app.get("/api/hello")
 async def hello():
     return {"message": "Hello from FastAPI"}
+
