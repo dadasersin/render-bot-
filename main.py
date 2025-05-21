@@ -5,34 +5,35 @@ import openai
 import os
 from dotenv import load_dotenv
 
-# .env dosyasından anahtarları al
+# .env dosyasını yükle (örneğin api.env)
 load_dotenv("api.env")
 
 app = FastAPI()
 
-# CORS
+# CORS ayarları - dışardan istek kabul etmek için
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Güvenlik için spesifik domain ekleyebilirsin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Groq API ayarları
-openai.api_key = os.getenv("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")  # api.env içine yaz: GROQ_API_KEY=xxx
-openai.base_url = "https://api.groq.com/openai/v1"  # 🔁 DİKKAT: bu Groq'un URL’si
+# Groq API anahtarını ortam değişkeninden al
+openai.api_key = os.getenv("GROQ_API_KEY")
+# Groq'un OpenAI API uyumlu URL'si
+openai.base_url = "https://api.groq.com/openai/v1"
 
-# İstek modeli
+# İstek gövdesi modeli
 class PromptRequest(BaseModel):
     prompt: str
 
-# Kod üretici endpoint
+# Kod üretme endpoint'i
 @app.post("/api/generate-code")
 async def generate_code(request: PromptRequest):
     try:
         response = openai.ChatCompletion.create(
-            model="mixtral-8x7b-32768",  # Groq destekli modellerden biri
+            model="mixtral-8x7b-32768",  # Groq destekli model
             messages=[
                 {"role": "system", "content": "Sen bir uzman Python geliştiricisisin."},
                 {"role": "user", "content": request.prompt}
@@ -44,6 +45,7 @@ async def generate_code(request: PromptRequest):
     except Exception as e:
         return {"error": str(e)}
 
+# Ana sayfa endpoint'i
 @app.get("/")
 async def root():
     return {"message": "Groq AI API çalışıyor, /api/generate-code endpoint'ini kullanın."}
