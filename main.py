@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv("api.env")
 
 # 🔑 OpenAI API anahtarını ortam değişkeninden al
-openai.api_key = os.getenv("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")
+openai.api_key = os.getenv("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")
 
 app = FastAPI()
 
