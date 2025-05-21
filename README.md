@@ -1,21 +1,14 @@
-# FastAPI Backend + Google Sites Frontend Entegrasyonu
+# Crypto AI Dashboard
 
-## Backend'i çalıştırmak için:
+BNB/USDT grafik verisini gösteren, al-sat butonları içeren bir kripto işlem paneli.
 
-1. Python 3.11+ yüklü olmalı.
-2. Gerekli paketleri yükle:
-   pip install fastapi uvicorn
-3. Backend'i başlat:
-   uvicorn backend.main:app --host 0.0.0.0 --port 8000
+## Özellikler
 
-## Frontend Google Sites'ta:
+- Binance API ile canlı fiyat güncelleme
+- Chart.js ile fiyat grafiği
+- Al / Sat simülasyonu
 
-- Google Sites > Embed > Embed Code seçeneğine tıklayın.
-- frontend/index.html içeriğini açıp, 
-  "(https://render-bot-r9rk.onrender.com)/api/hello" kısmını kendi backend URL'nizle değiştirip kopyalayın.
-- Embed kodu olarak yapıştırın ve kaydedin.
+## Kullanım
 
-## Not:
-
-- Backend URL'nizin internetten erişilebilir olması gerekir.
-- CORS ayarı Google Sites domainine göre backend'de yapılmıştır.
+1. `index.html` dosyasını tarayıcınızda açın.
+2. Sayfa otomatik olarak fiyatları çeker ve günceller.
