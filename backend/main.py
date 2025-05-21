@@ -1,18 +1,26 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import subprocess
 
 app = FastAPI()
 
-# CORS middleware ayarı
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://sites.google.com/view/dadasersin/httpsdashboard-render-com"],  # Geliştirme aşamasında tüm domainlere izin veriyoruz
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+class CodeRequest(BaseModel):
+    code: str
 
-@app.get("/api/hello")
-async def hello():
-    return {"message": "Hello from FastAPI"}
+@app.post("/run")
+async def run_code(req: CodeRequest):
+    try:
+        result = subprocess.run(
+            ["python3", "-c", req.code],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        return {
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+            "returncode": result.returncode
+        }
+    except subprocess.TimeoutExpired:
+        raise HTTPException(status_code=408, detail="Execution timed out")
 
