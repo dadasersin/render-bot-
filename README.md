@@ -12,7 +12,7 @@
 
 - Google Sites > Embed > Embed Code seçeneğine tıklayın.
 - frontend/index.html içeriğini açıp, 
-  "https://YOUR_BACKEND_URL/api/hello" kısmını kendi backend URL'nizle değiştirip kopyalayın.
+  "(https://render-bot-r9rk.onrender.com)/api/hello" kısmını kendi backend URL'nizle değiştirip kopyalayın.
 - Embed kodu olarak yapıştırın ve kaydedin.
 
 ## Not:
