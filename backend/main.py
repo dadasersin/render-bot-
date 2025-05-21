@@ -1,10 +1,17 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="frontend", html=True), name="static")
+# Google Sites için CORS ayarı (test için "*" da kullanılabilir)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://sites.google.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello from backend!"}
+@app.get("/api/hello")
+async def hello():
+    return {"message": "Merhaba, backend yanıt verdi!"}
