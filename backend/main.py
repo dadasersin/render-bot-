@@ -6,7 +6,7 @@ app = FastAPI()
 # CORS middleware ayarı
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Geliştirme aşamasında tüm domainlere izin veriyoruz
+    allow_origins=["https://sites.google.com/view/dadasersin/httpsdashboard-render-com"],  # Geliştirme aşamasında tüm domainlere izin veriyoruz
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
